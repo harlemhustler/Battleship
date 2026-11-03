@@ -358,3 +358,54 @@ If you're going to build this in Javascript, you're probably best off creating a
 After forking / cloning this repository, use this folder and initialize a new project (npm or bun), and get to work!
 
 Best of luck
+
+## Running the Game
+
+Start the terminal game from the project folder:
+
+```sh
+npm run start-game
+```
+
+Choose a board size of 4, 5, or 6, then enter guesses using a row letter and a
+zero-based column number (for example, `A0` is the top-left cell).
+
+## Browser Game
+
+The browser version uses the same game logic and is served as a Cloudflare Worker.
+To preview it locally:
+
+```sh
+npm install
+npm run dev:web
+```
+
+Open the local URL Wrangler prints in the terminal. To publish it to your
+Cloudflare account, authenticate with `npx wrangler login` and run:
+
+```sh
+npm run deploy:web
+```
+
+Consecutive wins earn browser-game rewards: a flare after 3 wins reveals one
+unhit large-ship cell, and a pirate after 5 wins reveals one unhit small-ship
+cell. Use rewards during a mission; revealed cells still need to be fired on.
+At 6 consecutive wins and every win after that, earn a cannon shot. Cannons can
+only be used on a 6×6 board; confirm the warning, then select two different
+squares. Each miss costs a flare first, then a pirate, then an extra cannon
+shot. Rewards and streaks are saved in the current browser. Restarting or
+abandoning an unfinished mission resets the streak.
+
+Choose a browser-game mode before starting a mission: Easy allows unlimited
+consecutive misses, Normal ends the mission after 5 consecutive misses, and
+Hard ends it after 3. A hit resets the consecutive-miss count. Losing a mission
+resets the win streak; mode selection is locked during a mission and while a
+win streak is active. The selected mode is saved in the current browser. In
+Normal and Hard, a counter below the board shows consecutive misses and how
+many remain before defeat; Easy does not show this limited-misses counter.
+
+Run the game logic tests with:
+
+```sh
+npm test
+```

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0b1322" />
+    <meta
+      name="description"
+      content="A quick, polished game of Battleship. Pick a board and start hunting."
+    />
+    <title>Battleship — Fleet Command</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <div class="skull-column skull-column-left" aria-hidden="true">
+      <span>☠</span><span>☠</span><span>☠</span><span>☠</span>
+      <span>☠</span><span>☠</span><span>☠</span><span>☠</span>
+      <span>☠</span><span>☠</span><span>☠</span><span>☠</span>
+    </div>
+    <div class="skull-column skull-column-right" aria-hidden="true">
+      <span>☠</span><span>☠</span><span>☠</span><span>☠</span>
+      <span>☠</span><span>☠</span><span>☠</span><span>☠</span>
+      <span>☠</span><span>☠</span><span>☠</span><span>☠</span>
+    </div>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Fleet Command home">
+          <span class="brand-mark" aria-hidden="true">⌁</span>
+          <span>FLEET<span class="brand-light">COMMAND</span></span>
+        </a>
+        <span class="topbar-note"><span class="live-dot"></span> SINGLE PLAYER</span>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow"><span>01</span> &nbsp; TACTICAL OPERATIONS</p>
+        <div class="intro-heading">
+          <h1 id="page-title">The ocean is<br /><span>your battlefield.</span></h1>
+          <details class="rules-dropdown">
+            <summary>RULES</summary>
+            <div class="rules-panel">
+              <h2>How to play</h2>
+              <ul>
+                <li>Sink every ship by firing at grid squares. A hit resets consecutive misses.</li>
+                <li>Large ships occupy 3 cells and show blue; small ships occupy 2 cells and show orange.</li>
+                <li>Easy has unlimited misses; Normal ends after 5 consecutive misses; Hard ends after 3. In Normal and Hard, the counter below the board shows consecutive misses and how many remain before defeat; a hit resets it.</li>
+                <li>A loss or restarting an unfinished mission resets your win streak. Choose your mode before building a streak; it locks while a streak is active.</li>
+                <li>Win streak rewards: a flare at 3 wins reveals a large-ship piece; a pirate at 5 reveals a small-ship piece.</li>
+                <li>At 6 wins and every win after that, earn a cannon shot. On a 6×6 board it fires at two squares. Misses cost a flare, then a pirate, then an extra cannon shot.</li>
+                <li>After a win, choose Next Game to keep your streak and play again.</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+        <p class="intro-copy">
+          Find every ship hidden beneath the surface. Choose your grid and make
+          every shot count.
+        </p>
+      </section>
+
+      <section class="game-layout" aria-label="Battleship game">
+        <div class="board-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">LIVE RADAR</p>
+              <h2 id="board-title">Awaiting deployment</h2>
+            </div>
+            <div class="turn-stats">
+              <span id="turn-count" class="turn-count">— SHOTS</span>
+              <span id="miss-count" class="turn-count">0 / ∞ MISSES</span>
+            </div>
+          </div>
+          <div id="board" class="board-wrap" aria-label="Battleship board">
+            <div class="empty-state">
+              <span class="radar-icon" aria-hidden="true">⌖</span>
+              <p>Choose your grid<br />and begin the mission.</p>
+            </div>
+          </div>
+          <div id="miss-progress" class="miss-progress" aria-live="polite" hidden></div>
+          <div id="message" class="message" role="status" aria-live="polite">
+            Select a board size to get started.
+          </div>
+        </div>
+
+        <aside class="control-panel">
+          <div class="control-section">
+            <p class="eyebrow">01 / SELECT MODE</p>
+            <div class="mode-options" role="group" aria-label="Game mode">
+              <button class="mode-option selected" type="button" data-mode="easy" aria-pressed="true">
+                <strong>Easy</strong><small>Unlimited consecutive misses</small>
+              </button>
+              <button class="mode-option" type="button" data-mode="normal" aria-pressed="false">
+                <strong>Normal</strong><small>5 consecutive misses</small>
+              </button>
+              <button class="mode-option" type="button" data-mode="hard" aria-pressed="false">
+                <strong>Hard</strong><small>3 consecutive misses</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="control-section grid-section">
+            <p class="eyebrow">02 / SELECT GRID</p>
+            <div class="size-options" role="group" aria-label="Board size">
+              <button class="size-option" type="button" data-size="4" aria-pressed="false">
+                <span>04</span><small>COMPACT</small>
+              </button>
+              <button class="size-option selected" type="button" data-size="5" aria-pressed="true">
+                <span>05</span><small>STANDARD</small>
+              </button>
+              <button class="size-option" type="button" data-size="6" aria-pressed="false">
+                <span>06</span><small>EXTENDED</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="fleet-section">
+            <div class="fleet-heading">
+              <p class="eyebrow">03 / YOUR FLEET</p>
+              <span id="fleet-total" class="fleet-total">07 CELLS</span>
+            </div>
+            <div id="fleet-list" class="fleet-list"></div>
+          </div>
+
+          <section class="rewards-section" aria-labelledby="rewards-title">
+            <div class="rewards-heading">
+              <p id="rewards-title" class="eyebrow">04 / STREAK REWARDS</p>
+              <span id="win-streak" class="fleet-total">0 WINS</span>
+            </div>
+            <div class="reward-list">
+              <button id="flare-button" class="reward-button flare-reward" type="button" disabled>
+                <span class="reward-icon" aria-hidden="true">🔥</span>
+                <span class="reward-description">
+                  <strong>Flare</strong><small>Reveals a large ship piece</small>
+                </span>
+                <span id="flare-count" class="reward-count">0</span>
+              </button>
+              <button id="pirate-button" class="reward-button pirate-reward" type="button" disabled>
+                <span class="reward-icon" aria-hidden="true">☠️</span>
+                <span class="reward-description">
+                  <strong>Pirate</strong><small>Reveals a small ship piece</small>
+                </span>
+                <span id="pirate-count" class="reward-count">0</span>
+              </button>
+              <button id="cannon-button" class="reward-button cannon-reward" type="button" disabled>
+                <span class="reward-icon" aria-hidden="true">💥</span>
+                <span class="reward-description">
+                  <strong>Cannon blast</strong><small>Fire at two squares · 6×6 only</small>
+                </span>
+                <span id="cannon-count" class="reward-count">0</span>
+              </button>
+            </div>
+            <p id="cannon-help" class="cannon-help" hidden>
+              Select two different squares. Each miss costs a flare or pirate first,
+              then an extra cannon shot.
+            </p>
+            <button id="cannon-cancel" class="cannon-cancel" type="button" hidden>
+              Cancel cannon aim
+            </button>
+          </section>
+
+          <button id="start-button" class="start-button" type="button">
+            <span>Start mission</span><span aria-hidden="true">↗</span>
+          </button>
+          <p class="help-copy">Tap a square to fire. Use a collected flare or pirate for a free hint.</p>
+          <p id="persistence-warning" class="persistence-warning" role="status" hidden></p>
+
+          <div class="legend">
+            <span><i class="legend-hit"></i> HIT</span>
+            <span><i class="legend-miss"></i> MISS</span>
+            <span><i class="legend-hidden"></i> UNKNOWN</span>
+          </div>
+        </aside>
+      </section>
+      <footer class="footer"><span>FLEET COMMAND</span><span>GOOD LUCK OUT THERE.</span></footer>
+    </main>
+  </body>
+</html>
