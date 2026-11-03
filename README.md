@@ -397,8 +397,8 @@ shot. Rewards and streaks are saved in the current browser. Restarting or
 abandoning an unfinished mission resets the streak.
 
 Choose a browser-game mode before starting a mission: Easy allows unlimited
-consecutive misses, Normal ends the mission after 5 consecutive misses, and
-Hard ends it after 3. A hit resets the consecutive-miss count. Losing a mission
+consecutive misses, Normal ends the mission after 7 consecutive misses, and
+Hard ends it after 5. A hit resets the consecutive-miss count. Losing a mission
 resets the win streak; mode selection is locked during a mission and while a
 win streak is active. The selected mode is saved in the current browser. In
 Normal and Hard, a counter below the board shows consecutive misses and how

@@ -24,8 +24,8 @@ const fleets = {
 
 const modes = {
   easy: { name: "Easy", missLimit: 0 },
-  normal: { name: "Normal", missLimit: 5 },
-  hard: { name: "Hard", missLimit: 3 },
+  normal: { name: "Normal", missLimit: 7 },
+  hard: { name: "Hard", missLimit: 5 },
 };
 
 const boardElement = document.querySelector("#board");
