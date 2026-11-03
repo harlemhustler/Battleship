@@ -131,7 +131,7 @@ h1 span { color: var(--accent); }
 .fleet-item { display: flex; align-items: center; justify-content: space-between; color: #c5ced8; font-size: 16.8px; }
 .fleet-name { display: flex; align-items: center; gap: 10px; }
 .ship-symbol { font-size: 18.2px; }
-.ship-length { color: #8492a5; font: 14px "DM Mono", monospace; }
+.ship-length { display: flex; gap: 4px; color: #8492a5; font: 14px "DM Mono", monospace; }
 .rewards-section { margin: 0 0 21px; padding-top: 18px; border-top: 1px solid var(--line); }
 .rewards-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .reward-list { display: grid; gap: 8px; margin-top: 12px; }
